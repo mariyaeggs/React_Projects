@@ -14,23 +14,27 @@ class ListContacts extends Component {
   updateQuery = (query) => {
     this.setState({ query: query.trim() });
   }
+
+  clearQuery = () => {
+    this.setState({ query: '' });
+  }
+
   render() {
     // Destructure objects
     const { contacts, onDeleteContact } = this.props;
     const { query } = this.state;
     let showContacts;
-    console.log(typeof(showContacts, "************"))
+    console.log(typeof ('showContacts', showContacts));
     if (query) {
       const matchContact = new RegExp(escapeRegExp(this.state.query), 'i');
-      showContacts=contacts.filter((contact) => matchContact.test(contact.name))
-      console.log("************matchContact", matchContact)
+      showContacts = contacts.filter(contact => matchContact.test(contact.name));
+      console.log('matchContact', matchContact);
     } else {
       showContacts = contacts;
     }
     showContacts.sort(sortBy('name'));
     return (
       <div className="list-contacts">
-        {JSON.stringify(this.state)}
         <div className="list-contacts-top">
           <input
             className="search-contacts"
@@ -40,6 +44,12 @@ class ListContacts extends Component {
             onChange={event => this.updateQuery(event.target.value)}
           />
         </div>
+        {showContacts.length !== contacts.length && (
+        <div className="show-contacts">
+          <span>Showing {showContacts.length} of {contacts.length} total</span>
+          <button onClick={this.clearQuery}>Show All</button>
+        </div>
+          )}
         <ol className="contact-list">
           {showContacts.map(contact => (
             <li key={contact.id} className="contact-list-item">

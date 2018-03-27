@@ -111,11 +111,11 @@ body, .app {
   font-size: 0;
 }
 
-.showing-contacts {
+.show-contacts {
   text-align: center;
   margin: 20px 0;
 }
-.showing-contacts button {
+.show-contacts button {
   color: blue;
   background: transparent;
   border: none;
