@@ -1,36 +1,19 @@
 import React, { Component } from 'react';
 import ListContacts from './ListContacts';
+import * as ContactsAPI from './utils/ContactsAPI'
 import './App.css';
 
 
 class App extends Component {
-  state = {
-    contacts: [
-      {
-        id: 'mariya',
-        name: 'Mariya Eggensperger',
-        email: 'eggenspergermariya@gmail.com',
-        avatarURL: 'http://localhost:5001/mariya.jpg',
-      },
-      {
-        id: 'scott',
-        name: 'Scott Eggensperger',
-        email: 'scotteggensperger@gmail.com',
-        avatarURL: 'http://localhost:5001/scott.jpg',
-      },
-      {
-        id: 'sofia',
-        name: 'Sofia Eggensperger',
-        email: 'sofiaeggensperger@gmail.com',
-        avatarURL: 'http://localhost:5001/sofia.jpg',
-      },
-      {
-        id: 'oliver',
-        name: 'Oliver Eggensperger',
-        email: 'ollieggensperger@gmail.com',
-        avatarURL: 'http://localhost:5001/oliver.jpg',
-      },
-    ],
+ state = {
+  contacts: []
+
+  }
+  componentDidMount() {
+    // When a promise is returned, pass in contacts to re-render
+    ContactsAPI.getAll().then((contacts) => {
+      this.setState( { contacts }) // Where ( { contacts: contacts })
+    })
   }
   removeContact = (contact) => {
     // Change state based on current state
